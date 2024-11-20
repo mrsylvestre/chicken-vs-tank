@@ -14,7 +14,7 @@
 		right:50%; /* Move it to the right for 50% of parent element*/
     margin-right:-355.5px;/* You need here to put 1/2 of what you have below in width*/
     width:711px;
-		border: 4px solid #000000;	
+		border: 4px solid #000000;
 	}
 	div#gameStartDiv{
 		position: absolute;
@@ -26,7 +26,7 @@
     width:711px;
 		height: 400px;
 		background-color: black;
-		border: 4px solid #000000;	
+		border: 4px solid #000000;
 	}
 	div#gameStartDiv p{
 		background-color: rgba(0, 0, 0, 0.66);
@@ -47,7 +47,7 @@
 	button{
 		padding: 10px 20px;
 		background-color: white;
-		border-radius: 10px; 
+		border-radius: 10px;
 		border: 1px ridge black;
 	}
 	button:hover{
@@ -79,12 +79,12 @@
 	 	<strong>
 		<i class="fa fa-question-circle-o" aria-hidden="true"></i>
 	 	Comment jouer
-	 	</strong> 
+	 	</strong>
 		<br>
 		<br>
-		Déplacez-vous avec les flèches 
-		<i class="fa fa-arrow-circle-o-left" aria-hidden="true"></i> 
-		<i class="fa fa-arrow-circle-o-up" aria-hidden="true"></i> 
+		Déplacez-vous avec les flèches
+		<i class="fa fa-arrow-circle-o-left" aria-hidden="true"></i>
+		<i class="fa fa-arrow-circle-o-up" aria-hidden="true"></i>
 		<i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i>
 		<br>
 		<br>
@@ -112,11 +112,11 @@ var canevas=document.getElementById("monCanevas");
 var contexte=canevas.getContext("2d");
 
 var jumping=false;//ne saute pas au départ
-var firstJumpSpeed=250;//vitesse du premier saut
-var wingsForce=150;//force du battement d'aile
-var wingRateDelay=400;//temp en MS avant de rebattre les ailes
+var firstJumpSpeed=200;//vitesse du premier saut
+var wingsForce=75;//force du battement d'aile
+var wingRateDelay=350;//temp en MS avant de rebattre les ailes
 var grounded=false;//ne touche pas le sol au départ
-var glissement = 0.95;//resistance au mouvement
+var glissement = 1;//resistance au mouvement
 var gravity = 10;//Vitesse d'acceleration vers le sol
 var chickenSpeed = 8;//vitesse de deplacement
 var chickenFacesRight=true;
@@ -141,7 +141,7 @@ var tankSpeed = chickenSpeed +1;//Vitesse ideale 0.2 de plus que chickenSpeed
 
 //Les bonus a ramasser
 var coins = [];
-var coinSpawnRate = 0.45;
+var coinSpawnRate = 0.75;
 var imgCoins = new Image(); imgCoins.src = "images/coin.png";
 //plateformesVolantes mises dans un tableau
 var plateformesVolantes = [];//vide au départ
@@ -223,7 +223,7 @@ function animer()
 };
 // requestAnimationFrame(animer);
 
-function afficher() 
+function afficher()
 {
 	contexte.drawImage(imageBG, xBG, yBG);
 	// plateformesVolantes à partir du tableau
@@ -238,7 +238,7 @@ function afficher()
 	//player
 	chicken.afficher();
 	//chicken.scale(2);
-	
+
 	//Affiche l'explosion du score
 	for(var i=0;i<explosions.length;i++){
 		explosions[i].afficher();
@@ -285,13 +285,13 @@ function afficher()
 			tankOnScreen = false;
 		}
 	}
-	
+
 	//Cree les nouveaux tanks
 	var tankRandomizer = Math.random();
 	if(tankRandomizer < tankSpawnRate && !tankOnScreen){
 		tankOnScreen = true;
 		var tankDirection = Math.random();
-		
+
 		if(tankDirection > 0.5){//viendra par la gauche
 		  tankDirectionResult = "left";
 			//horizontalSheet : i,indexImage,x,y,v,scale,Vx,Vy,jumping,grounded,ticsParImage,nbImages,L,H,xDebut,contexte,sheet
@@ -318,9 +318,9 @@ function collisCheck(shapeA, shapeB)
 	var Dy = (shapeA.y + shapeA.H/2) - (shapeB.y + shapeB.H / 2);
 	// calcul du coté de la collision
 	var offsetX = shapeA.L/2 + shapeB.L / 2 - Math.abs(Dx);
-	var offsetY = shapeA.H/2 + shapeB.H / 2 - Math.abs(Dy);		
+	var offsetY = shapeA.H/2 + shapeB.H / 2 - Math.abs(Dy);
 	//condition de collision
-	if (Math.abs(Dx) < shapeA.L/2 + shapeB.L / 2 && Math.abs(Dy) < shapeA.H/2 + shapeB.H / 2) {			
+	if (Math.abs(Dx) < shapeA.L/2 + shapeB.L / 2 && Math.abs(Dy) < shapeA.H/2 + shapeB.H / 2) {
 		if (offsetX >= offsetY) {
 			if (Dy > 0) {
 				dirCollis = "top";//top
@@ -341,7 +341,7 @@ function collisCheck(shapeA, shapeB)
 				shapeA.x -= offsetX;
 			}
 		}
-	}		
+	}
 	return dirCollis;
 }
 
@@ -434,7 +434,7 @@ function incrementer(dt)
 			chicken.x = canevas.width - (canevas.width/2);
 			xBG -= chickenSpeed;
 			glissement = 0.01;//Limite le glissement pour pas sortir du cadre
-			
+
 			//Fait bouger les tank en consequence du mouvement
 			for(var i=0;i<tanks.length;i++){
 				tanks[i].x -= chickenSpeed;
@@ -498,12 +498,12 @@ function incrementer(dt)
 			chicken.x = 0 + (canevas.width/2);
 			xBG += chickenSpeed;
 			glissement = 0.01;//Limite le glissement pour pas sortir du cadre
-			
+
 			//Fait bouger les tank en consequence du mouvement
 			for(var i=0;i<tanks.length;i++){
 				tanks[i].x += chickenSpeed;
 			}
-			
+
 			for (var i = 0; i < plateformesVolantes.length; i++){
 				plateformesVolantes[i].x += chickenSpeed;
 				//Efface les plateforme qui depassent du canvas
@@ -561,7 +561,7 @@ function incrementer(dt)
 	}
 }
 
-function rndMinMax(min, max) 
+function rndMinMax(min, max)
 {
 	var rndNb = Math.floor(Math.random() * (max - min)) + min;
 	return rndNb;
@@ -574,7 +574,7 @@ function afficherScore()
 	contexte.fillStyle="#3a3a3a";
 	contexte.textBaseline="top";//top, bottom ou center
 	contexte.fillText("score : "+score, 30, 20);
-	
+
 	if(score % 500 == 0){
 		playSound("scoreSound");
 		//horizontalSheet : i,indexImage,x,y,v,scale,Vx,Vy,jumping,grounded,ticsParImage,nbImages,L,H,xDebut,contexte,sheet
