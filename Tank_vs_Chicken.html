@@ -714,6 +714,9 @@
 		// Hides onscreen controls when not mobile
 		if (!/Mobi/i.test(window.navigator.userAgent)) {
 			document.getElementById('gameControls').style.display = "none";
+		} else {
+			firstJumpSpeed *= 2;
+			wingsForce *= 2;
 		}
 
 		// Add touchstart and touchend listeners for mobile
