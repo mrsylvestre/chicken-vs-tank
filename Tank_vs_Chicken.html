@@ -72,6 +72,7 @@
 		}
 
 		button.controls {
+			width: 30%;
 			padding: 70px 0;
 			background-color: white;
 			border-radius: 10px;
@@ -79,20 +80,11 @@
     	touch-action: manipulation;
 		}
 
-		button#moveUpBtn {
-			width: 90%;
-			margin-bottom: 5px;
-		}
-
-		button#moveLeftBtn,
-		button#moveRightBtn {
-			width: 45%;
-		}
-
 		button:hover {
 			border-color: white;
 			cursor: pointer;
 		}
+
 	</style>
 	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
 		integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
@@ -143,8 +135,8 @@
 	</div>
 
 	<div id="gameControls">
-		<button id="moveUpBtn" class="controls"><i class="fa fa-3x fa-arrow-circle-o-up" aria-hidden="true"></i></button>
 		<button id="moveLeftBtn" class="controls"><i class="fa fa-3x fa-arrow-circle-o-left" aria-hidden="true"></i></button>
+		<button id="moveUpBtn" class="controls"><i class="fa fa-3x fa-arrow-circle-o-up" aria-hidden="true"></i></button>
 		<button id="moveRightBtn" class="controls"><i class="fa fa-3x fa-arrow-circle-o-right" aria-hidden="true"></i></button>
 	</div>
 
@@ -724,8 +716,8 @@
 		if (!/Mobi/i.test(window.navigator.userAgent)) {
 			document.getElementById('gameControls').style.display = "none";
 		} else {
-			firstJumpSpeed *= 1.5;
-			wingsForce *= 1.5;
+			firstJumpSpeed *= 1.75;
+			wingsForce *= 1.75;
 		}
 
 		// Add touchstart and touchend listeners for mobile
